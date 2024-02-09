@@ -32,10 +32,13 @@ const usuariosPut = async (req, res) => {
     const { id } = req.params;
     const {_id, password, google, correo, ...resto} = req.body;
 
-    const usuario = await Usuario.findByIdAndUpdate(id, resto);
+    await Usuario.findByIdAndUpdate(id, resto);
+
+    const usuario = await Usuario.findOne({_id: id});
 
     res.status(200).json({
-        msg: 'Usuario Actualizado exitosamente'
+        msg: 'Usuario Actualizado exitosamente',
+        usuario
     })
 
 }
